@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 const locales = ['sv', 'en']
 const defaultLocale = 'sv'
 
-export function middleware(request) {
+export function middleware(request: NextRequest) {
   // Check if there is any supported locale in the pathname
   const pathname = request.nextUrl.pathname
   const pathnameHasLocale = locales.some(
