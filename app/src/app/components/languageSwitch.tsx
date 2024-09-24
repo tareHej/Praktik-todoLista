@@ -13,14 +13,14 @@ export default function LanguageSwitcher() {
         aria-label="Switch to Swedish"
         onClick={() => changeLanguage('sv')}
       >
-        🇸🇪
+        <span className="fi fi-se"></span>
       </button>
       <button 
         className="text-2xl" 
         aria-label="Switch to English"
         onClick={() => changeLanguage('en')}
       >
-        🇬🇧
+        <span className="fi fi-gb"></span>
       </button>
     </div>
   );
