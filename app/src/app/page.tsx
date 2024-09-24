@@ -4,7 +4,7 @@ import TodoList from './components/todoList'
 export default function Home() {
   return (
     <div className="min-h-screen">
-      
+
 
       <header className="bg-blue-500 h-16 flex items-center justify-end px-4">
         <LanguageSwitcher />
@@ -20,7 +20,7 @@ export default function Home() {
         </nav>
         <main className="flex-1 p-8">
           <h1 className="text-2xl font-bold">Min to-do lista</h1>
-          <TodoList />  
+          <TodoList />
         </main>
       </div>
     </div>
