@@ -1,4 +1,5 @@
 import LanguageSwitcher from './components/languageSwitch'
+import TodoList from './components/todoList'
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         </nav>
         <main className="flex-1 p-8">
           <h1 className="text-2xl font-bold">Min to-do lista</h1>
+          <TodoList />  
         </main>
       </div>
     </div>
