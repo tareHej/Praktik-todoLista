@@ -1,4 +1,5 @@
 import LanguageSwitcher from '../components/languageSwitch'
+import TodoList from '../components/todoList';
 import { getDictionary } from './dictionaries'
 
 type PageProps = {
@@ -27,6 +28,8 @@ export default async function Page({ params: { lang } }: PageProps) {
         <main className="flex-1 p-8">
           <h1 className="text-2xl font-bold">{dict.title}</h1>
           <div>Current language: {lang}</div>
+          <TodoList />  
+
         </main>
       </div>
     </div>

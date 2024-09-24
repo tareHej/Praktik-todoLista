@@ -3,5 +3,10 @@
     "home": "Home",
     "tasks": "Tasks",
     "categories": "Categories",
-    "settings": "Settings"
+    "settings": "Settings",
+    "todo": {
+      "add": "Add todo",
+      "remove": "Remove todo",
+      "toggle": "Toggle todo"
+    }
   }
