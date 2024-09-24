@@ -60,11 +60,12 @@ const TodoList = () => {
                     className="form-checkbox h-6 w-6 mr-5"
                 />
                 <span
+                    className="flex-grow"
                     style={{textDecoration: todo.completed ? 'line-through' : 'none' }}> 
                     {todo.text}
                 </span>
                 <button
-                className="ml-12 px-2 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-700" 
+                className="ml-12 px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-700" 
                 onClick={() => removeTodo(todo.id)}
                 >Ta bort todo</button>
             </li>
