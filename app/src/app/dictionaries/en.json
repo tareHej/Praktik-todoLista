@@ -1,0 +1,12 @@
+{
+    "title": "My Todo List",
+    "home": "Home",
+    "tasks": "Tasks",
+    "categories": "Categories",
+    "settings": "Settings",
+    "todo": {
+      "add": "Add todo",
+      "remove": "Remove todo",
+      "toggle": "Toggle todo"
+    }
+  }
