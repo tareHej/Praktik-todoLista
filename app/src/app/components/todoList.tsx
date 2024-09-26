@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import { getDictionary} from '../[lang]/dictionaries';
 
 interface Todo {
   id: string;
@@ -11,6 +13,17 @@ interface Todo {
 const TodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoText, setNewTodoText] = useState('');
+  const [dict, setDict] = useState<any>({});
+  const { lang } = useParams();
+
+  useEffect(() => {
+    const loadDictionary = async () => {
+      const dictionary = await getDictionary(lang as 'en' | 'sv');
+      setDict(dictionary);
+    };
+    loadDictionary();
+  }, [lang]);
+
 
   const addTodo = () => {
     if (newTodoText.trim() !== '') {
@@ -46,29 +59,37 @@ const TodoList = () => {
         className="p-2 mr-4 border rounded"
         type="text" 
         value={newTodoText} 
-        onChange={(e) => setNewTodoText(e.target.value)}/>
+        onChange={(e) => setNewTodoText(e.target.value)}
+        placeholder={dict.todo?.add}
+      />
       <button 
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-        onClick={addTodo}>Lägg till</button>
+        onClick={addTodo}
+      >
+        {dict.todo?.add}
+      </button>
       <ul className="mt-4">
         {todos.map((todo) => (
-            <li key={todo.id} className="flex items-center mt-2 p-2 border rounded">
-                <input 
-                    type="checkbox" 
-                    checked={todo.completed} 
-                    onChange={() => toggleTodo(todo.id)}
-                    className="form-checkbox h-6 w-6 mr-5"
-                />
-                <span
-                    className="flex-grow"
-                    style={{textDecoration: todo.completed ? 'line-through' : 'none' }}> 
-                    {todo.text}
-                </span>
-                <button
-                className="ml-12 px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-700" 
-                onClick={() => removeTodo(todo.id)}
-                >dict.todo.remove</button>
-            </li>
+          <li key={todo.id} className="flex items-center mt-2 p-2 border rounded">
+            <input 
+              type="checkbox" 
+              checked={todo.completed} 
+              onChange={() => toggleTodo(todo.id)}
+              className="form-checkbox h-6 w-6 mr-5"
+            />
+            <span
+              className="flex-grow"
+              style={{textDecoration: todo.completed ? 'line-through' : 'none' }}
+            > 
+              {todo.text}
+            </span>
+            <button
+              className="ml-12 px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-700" 
+              onClick={() => removeTodo(todo.id)}
+            >
+              {dict.todo?.remove}
+            </button>
+          </li>
         ))}
       </ul>
     </div>

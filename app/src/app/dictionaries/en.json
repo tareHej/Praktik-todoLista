@@ -5,8 +5,8 @@
     "categories": "Categories",
     "settings": "Settings",
     "todo": {
-      "add": "Add todo",
-      "remove": "Remove todo",
+      "add": "Add item",
+      "remove": "Remove item",
       "toggle": "Toggle todo"
     }
   }
