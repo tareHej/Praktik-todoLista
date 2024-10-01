@@ -11,7 +11,6 @@ export async function setSelectedLanguage(language: string) {
     });
     const data = await response.json();
 
-    console.log({data});
     
     return data;
 }

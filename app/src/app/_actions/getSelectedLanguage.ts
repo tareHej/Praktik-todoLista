@@ -4,7 +4,6 @@ export async function getSelectedLanguage() {
     });
     const data = await response.json();
 
-    console.log({data});
     
     return data;
 }

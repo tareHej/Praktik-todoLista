@@ -10,7 +10,7 @@ export default function LanguageSwitcher() {
 
   const changeLanguage = async (locale: string) => {
     const currentLang = pathname.split('/')[1]
-    if (currentLang === locale) return // Don't change if it's already the current language
+    if (currentLang === locale) return
 
     try {
       // Set the language in the backend
@@ -21,7 +21,6 @@ export default function LanguageSwitcher() {
       router.push(newPathname)
     } catch (error) {
       console.error('Failed to change language:', error)
-      // You might want to show an error message to the user here
     }
   };
 
