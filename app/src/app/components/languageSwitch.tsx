@@ -2,17 +2,26 @@
 
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
+import { setSelectedLanguage } from '../_actions/setSelectedLanguage'
 
 export default function LanguageSwitcher() {
   const router = useRouter()
   const pathname = usePathname()
 
-  const changeLanguage = (locale: string) => {
+  const changeLanguage = async (locale: string) => {
     const currentLang = pathname.split('/')[1]
-    if (currentLang === locale) return // Don't change if it's already the current language
+    if (currentLang === locale) return
 
-    const newPathname = pathname.replace(/^\/[a-z]{2}/, `/${locale}`)
-    router.push(newPathname)
+    try {
+      // Set the language in the backend
+      await setSelectedLanguage(locale)
+
+      // Update the frontend route
+      const newPathname = pathname.replace(/^\/[a-z]{2}/, `/${locale}`)
+      router.push(newPathname)
+    } catch (error) {
+      console.error('Failed to change language:', error)
+    }
   };
 
   return (
