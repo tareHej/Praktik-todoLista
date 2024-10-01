@@ -3,5 +3,10 @@
     "home": "Hem",
     "tasks": "Uppgifter",
     "categories": "Kategorier",
-    "settings": "Inställningar"
+    "settings": "Inställningar",
+    "todo": {
+      "add": "Lägg till uppgift",
+      "remove": "Ta bort uppgift",
+      "toggle": "Växla uppgift"
+    }
   }

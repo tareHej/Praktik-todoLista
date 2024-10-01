@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 app = FastAPI()
 
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=["http://localhost:3000"],  # Allows all origins
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
@@ -46,6 +47,22 @@ async def add_todo(todo: dict):
 @app.delete("/todos/{todo_id}")
 async def delete_todo(todo_id: int):
     todos = [todo for todo in todos if todo["id"] != todo_id]
+
+selected_language = "en"
+
+class LanguageRequest(BaseModel):
+    language: str
+
+@app.get("/language")
+async def get_language():
+    return {"language": selected_language}
+
+@app.post("/language")
+async def set_language(request: LanguageRequest):
+    global selected_language
+    selected_language = request.language
+    return {"language": selected_language}
+
 
 if __name__ == "__main__":
     import uvicorn
