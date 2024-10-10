@@ -46,16 +46,20 @@ async def add_todo(todo: dict):
 
 @app.delete("/todos/{todo_id}")
 async def delete_todo(todo_id: int):
+    global todos
     todos = [todo for todo in todos if todo["id"] != todo_id]
 
 selected_language = "en"
 
+
 class LanguageRequest(BaseModel):
     language: str
+
 
 @app.get("/language")
 async def get_language():
     return {"language": selected_language}
+
 
 @app.post("/language")
 async def set_language(request: LanguageRequest):
