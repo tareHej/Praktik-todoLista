@@ -32,8 +32,12 @@ const TodoList = () => {
         completed: false,
       };
       const savedTodo = await addTodo(newTodo);
+      if (savedTodo.error) {
+        alert(savedTodo.error);
+      } else {
       setTodos([...todos, savedTodo.todo]);
       setNewTodoText('');
+      }
     }
   };
 
@@ -68,7 +72,7 @@ const TodoList = () => {
           <li key={todo.id.toString()} className="flex items-center mt-2 p-2 border rounded">
             <input
               type="checkbox"
-              checked={todo.completed}
+              checked={todo.completed ?? false}
               onChange={() => toggleTodo(todo.id)}
               className="form-checkbox h-6 w-6 mr-5"
             />

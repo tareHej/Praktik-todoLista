@@ -1,6 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import stripe
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
 
@@ -12,6 +15,15 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
+
+load_dotenv()
+
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+
+price_id = os.getenv("PRICE_ID")
+
+user_status = "freemium"
+
 
 todos = [{"id": 1, "text": "Buy groceries", "completed": False},
          {"id": 2, "text": "Do laundry", "completed": False},
@@ -34,6 +46,12 @@ async def get_todos():
 @app.post("/todos")
 async def add_todo(todo: dict):
     global highest_id
+    global todos
+    global user_status
+
+    if user_status == "freemium" and len(todos) >= 5:
+        return {"error": "Freemium användare kan endast lägga till upp till 5 todos"}
+
     highest_id += 1
     new_todo = {
         "id": highest_id,
@@ -67,6 +85,37 @@ async def set_language(request: LanguageRequest):
     selected_language = request.language
     return {"language": selected_language}
 
+
+class CheckoutRequest(BaseModel):
+    priceId: str
+
+
+@app.post("/create-checkout-session")
+async def create_checkout_session(request: CheckoutRequest):
+    global user_status
+
+    session = stripe.checkout.Session.create(
+        payment_method_types=["card"],
+        line_items=[
+            {'price': request.priceId, 'quantity': 1},
+        ],
+        mode="subscription",
+        billing_address_collection="auto",
+        success_url="http://localhost:3000/",
+        cancel_url="http://localhost:3000/",
+    )
+    return {"session_id": session.id}
+
+
+@app.post("/checkout-success")
+async def checkout_success(sessionId: str):
+    global user_status
+    print(sessionId)
+    session = stripe.checkout.Session.retrieve(sessionId)
+
+    user_status = "paid"
+
+    return
 
 if __name__ == "__main__":
     import uvicorn

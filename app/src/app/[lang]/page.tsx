@@ -1,6 +1,7 @@
 import LanguageSwitcher from '../components/languageSwitch'
 import TodoList from '../components/todoList';
 import { getDictionary } from './dictionaries'
+import Subscribe from '../components/subscribeButton'
 
 type PageProps = {
   params: {
@@ -23,6 +24,7 @@ export default async function Page({ params: { lang } }: PageProps) {
             <li><a href="#" className="block py-2 px-4 hover:bg-gray-700 rounded">{dict.tasks}</a></li>
             <li><a href="#" className="block py-2 px-4 hover:bg-gray-700 rounded">{dict.categories}</a></li>
             <li><a href="#" className="block py-2 px-4 hover:bg-gray-700 rounded">{dict.settings}</a></li>
+            <li><Subscribe /></li>
           </ul>
         </nav>
         <main className="flex-1 p-8">
